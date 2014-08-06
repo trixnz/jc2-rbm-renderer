@@ -1,4 +1,4 @@
-Renderer for Just Cause 2 model (RBM) assets
+Renderer for ```Just Cause 2``` model assets
 ==============
 
 Currently a **```WORK IN PROGRESS```**.
