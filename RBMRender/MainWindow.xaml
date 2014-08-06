@@ -1,0 +1,27 @@
+﻿<Window x:Class="RBMRender.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:toolkit="clr-namespace:SharpDX.Toolkit;assembly=SharpDX.Toolkit.Game"
+		Title="MainWindow" Height="600" Width="800" Loaded="MainWindow_OnLoaded">
+	<Grid>
+		<DockPanel>
+			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="_File">
+					<MenuItem Header="_Open" Click="MenuItem_OnClick"/>
+				</MenuItem>
+			</Menu>
+
+			<Grid DockPanel.Dock="Bottom">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="300" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<ListBox x:Name="lstModels" Grid.Column="0" SelectionChanged="lstModels_SelectionChanged" SelectionMode="Extended"/>
+				<GridSplitter Width="5"/>
+				<toolkit:SharpDXElement x:Name="Surface" x:FieldModifier="private" SendResizeToGame="True"
+										SendResizeDelay="00:00:00.00" LowPriorityRendering="False" Visibility="Visible"
+										Grid.Column="2" MouseDown="Surface_MouseDown"/>
+			</Grid>
+		</DockPanel>
+	</Grid>
+</Window>
