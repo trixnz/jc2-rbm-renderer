@@ -82,9 +82,6 @@ namespace Gibbed.Avalanche.RenderBlockModel
 
 		private static float GetFloatFromS16N(short c)
 		{
-			if (c == -1)
-				return -1.0f;
-
 			return c*(1.0f/32767);
 		}
 	}

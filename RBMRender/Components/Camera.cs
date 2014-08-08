@@ -136,7 +136,7 @@ namespace RBMRender.Components
 
 			UpdateViewMatrix();
 			float aspectRatio = GraphicsDevice.BackBuffer.Width/(float) GraphicsDevice.BackBuffer.Height;
-			Projection = Matrix.PerspectiveFovRH((float) Math.PI/4.0f, aspectRatio, 1f, 1000000.0f);
+			Projection = Matrix.PerspectiveFovRH((float) Math.PI/4.0f, aspectRatio, 0.01f, 10000.0f);
 
 			// Handle base.Update
 			base.Update(gameTime);
