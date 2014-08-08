@@ -57,7 +57,8 @@ namespace RBMRender.Objects
 				                         {typeof (CarPaintSimple), typeof (RenderBlockCarPaintSimple)},
 				                         {typeof (DeformableWindow), typeof (RenderBlockDeformableWindow)},
 				                         {typeof (General), typeof (RenderBlockGeneral)},
-				                         {typeof (SkinnedGeneral), typeof (RenderBlockSkinnedGeneral)}
+				                         {typeof (SkinnedGeneral), typeof (RenderBlockSkinnedGeneral)},
+				                         {typeof (Lambert), typeof (RenderBlockLambert)}
 			                         };
 
 			foreach (IRenderBlock renderBlock in ModelFile.Blocks)

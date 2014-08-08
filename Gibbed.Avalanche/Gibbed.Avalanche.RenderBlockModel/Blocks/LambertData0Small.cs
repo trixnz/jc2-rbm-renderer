@@ -29,17 +29,17 @@ namespace Gibbed.Avalanche.RenderBlockModel.Blocks
 {
     public struct LambertData0Small : IFormat
     {
-        public short TexCoord1A;
-        public short TexCoord1B;
+		public PackedFloat U;
+		public PackedFloat V;
         public short TexCoord1C;
         public short TexCoord1D;
         public float TexCoord2A;
         public float TexCoord2B;
         public float TexCoord2C;
-        public short PositionX;
-        public short PositionY;
-        public short PositionZ;
-        public short PositionW;
+        public PackedFloat PositionX;
+        public PackedFloat PositionY;
+        public PackedFloat PositionZ;
+        public PackedFloat PositionW;
 
         public void Serialize(Stream output, Endian endian)
         {
@@ -48,17 +48,17 @@ namespace Gibbed.Avalanche.RenderBlockModel.Blocks
 
         public void Deserialize(Stream input, Endian endian)
         {
-            this.TexCoord1A = input.ReadValueS16(endian);
-            this.TexCoord1B = input.ReadValueS16(endian);
+            this.U = new PackedFloat(input);
+            this.V = new PackedFloat(input);
             this.TexCoord1C = input.ReadValueS16(endian);
             this.TexCoord1D = input.ReadValueS16(endian);
             this.TexCoord2A = input.ReadValueF32(endian);
             this.TexCoord2B = input.ReadValueF32(endian);
             this.TexCoord2C = input.ReadValueF32(endian);
-            this.PositionX = input.ReadValueS16(endian);
-            this.PositionY = input.ReadValueS16(endian);
-            this.PositionZ = input.ReadValueS16(endian);
-            this.PositionW = input.ReadValueS16(endian);
+            this.PositionX = new PackedFloat(input);
+            this.PositionY = new PackedFloat(input);
+            this.PositionZ = new PackedFloat(input);
+            this.PositionW = new PackedFloat(input);
         }
     }
 }

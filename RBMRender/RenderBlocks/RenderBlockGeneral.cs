@@ -31,7 +31,7 @@ namespace RBMRender.RenderBlocks
 					var vertex = new VertexPositionNormalTextureTangent();
 					vertex.Position = new Vector3(smallVertice.PositionX, smallVertice.PositionY, smallVertice.PositionZ);
 					vertex.Normal = new Vector3(smallVertice.Normal.X, smallVertice.Normal.Y, smallVertice.Normal.Z);
-					vertex.TextureCoordinate = new Vector2(smallVertice.U, smallVertice.V);
+					vertex.TextureCoordinate = new Vector2(smallVertice.U, smallVertice.V)*new Vector2(Block.Unknown13, Block.Unknown14);
 					// Just a guess at this stage
 					vertex.Tangent = new Vector3(smallVertice.UnkPacked3.X, smallVertice.UnkPacked3.Y, smallVertice.UnkPacked3.Z);
 

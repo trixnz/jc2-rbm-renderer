@@ -49,6 +49,7 @@
     <Compile Include="Blocks\General.cs" />
     <Compile Include="Blocks\GeneralData0Big.cs" />
     <Compile Include="Blocks\GeneralData0Small.cs" />
+    <Compile Include="Blocks\Halo.cs" />
     <Compile Include="Blocks\Lambert.cs" />
     <Compile Include="Blocks\LambertData0Big.cs" />
     <Compile Include="Blocks\LambertData0Small.cs" />

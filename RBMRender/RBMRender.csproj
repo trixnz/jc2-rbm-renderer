@@ -81,6 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="ArchiveWrapper.cs" />
     <Compile Include="RenderBlocks\RenderBlockBase.cs" />
+    <Compile Include="RenderBlocks\RenderBlockLambert.cs" />
     <Compile Include="RenderBlocks\RenderBlockDeformableWindow.cs" />
     <Compile Include="RenderBlocks\RenderBlockCarPaintSimple.cs" />
     <Compile Include="RenderBlocks\RenderBlockCarPaint.cs" />

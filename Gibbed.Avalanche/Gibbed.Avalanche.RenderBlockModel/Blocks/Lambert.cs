@@ -29,11 +29,13 @@ namespace Gibbed.Avalanche.RenderBlockModel.Blocks
 {
     public class Lambert : IRenderBlock
     {
-        public uint Unknown28;
+        public uint Flags;
         public Material Material;
         public readonly List<LambertData0Small> VertexData0Small = new List<LambertData0Small>();
         public readonly List<LambertData0Big> VertexData0Big = new List<LambertData0Big>();
         public readonly List<short> Faces = new List<short>();
+
+		public bool HasBigVertices { get { return Flags == 0; } }
 
         public void Serialize(Stream output, Endian endian)
         {
@@ -50,7 +52,7 @@ namespace Gibbed.Avalanche.RenderBlockModel.Blocks
 
             if (version == 4)
             {
-                this.Unknown28 = input.ReadValueU32(endian);
+                this.Flags = input.ReadValueU32(endian);
                 input.ReadBytes(40);
             }
             else
@@ -60,11 +62,11 @@ namespace Gibbed.Avalanche.RenderBlockModel.Blocks
 
             this.Material.Deserialize(input, endian);
 
-            if (this.Unknown28 == 0)
+            if (this.Flags == 0)
             {
                 input.ReadArray(this.VertexData0Big, endian);
             }
-            else if (this.Unknown28 == 1)
+            else if (this.Flags == 1)
             {
                 input.ReadArray(this.VertexData0Small, endian);
             }

@@ -36,17 +36,22 @@ namespace Gibbed.Avalanche.RenderBlockModel.Blocks
             get { return this.Unknown11 == 0; }
         }
 
+		// Vector4 unkVec1
         public float Unknown01;
         public float Unknown02;
         public float Unknown03;
         public float Unknown04;
+		// Vector4 unkVec2
         public float Unknown05;
         public float Unknown06;
         public float Unknown07;
         public float Unknown08;
+		// float unkFloat
         public float Unknown09;
+		// float coordScale
         public float Unknown10;
 
+		// flags
         public uint Unknown11;
 
         public float Unknown12;

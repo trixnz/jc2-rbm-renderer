@@ -78,6 +78,7 @@ namespace Gibbed.Avalanche.RenderBlockModel
             Register<Blocks.General>("General");
             Register<Blocks.Lambert>("Lambert");
             Register<Blocks.SkinnedGeneral>("SkinnedGeneral");
+            Register<Blocks.Halo>("Halo");
         }
 
         private static readonly string[] _Names = new[]
