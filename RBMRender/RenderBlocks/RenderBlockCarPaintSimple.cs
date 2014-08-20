@@ -7,8 +7,8 @@ namespace RBMRender.RenderBlocks
 {
 	public class RenderBlockCarPaintSimple : RenderBlockBase<CarPaintSimple>
 	{
-		public RenderBlockCarPaintSimple(GameWorld game, ArchiveWrapper archive, CarPaintSimple block)
-			: base(game, archive, block)
+		public RenderBlockCarPaintSimple(GameWorld game, SmallArchiveWrapper smallArchive, CarPaintSimple block)
+			: base(game, smallArchive, block)
 		{
 		}
 
@@ -33,7 +33,7 @@ namespace RBMRender.RenderBlocks
 			SetTexture("PropertiesTexture", Block.Textures[1]);
 			SetTexture("NormalsTexture", Block.Textures[2]);
 
-			foreach (EffectPass pass in Game.NormalMappingEffect.CurrentTechnique.Passes)
+			foreach (EffectPass pass in Game.NormalMappingEffect.Techniques["CarPaint"].Passes)
 			{
 				pass.Apply();
 

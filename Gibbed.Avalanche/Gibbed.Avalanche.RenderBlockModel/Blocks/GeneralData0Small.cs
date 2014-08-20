@@ -34,8 +34,8 @@ namespace Gibbed.Avalanche.RenderBlockModel.Blocks
 		public PackedFloat PositionZ;
 		public PackedFloat U;
 		public PackedFloat V;
-		public short TexCoord1C;
-		public short TexCoord1D;
+		public PackedFloat U2;
+		public PackedFloat V2;
 		public float TexCoord2A;
 		public float TexCoord2B;
 		public float TexCoord2C;
@@ -53,12 +53,12 @@ namespace Gibbed.Avalanche.RenderBlockModel.Blocks
 		{
 			U = new PackedFloat(input);
 			V = new PackedFloat(input);
-			TexCoord1C = input.ReadValueS16(endian);
-			TexCoord1D = input.ReadValueS16(endian);
+			U2 = new PackedFloat(input);
+			V2 = new PackedFloat(input);
 
 			Normal = new PackedVector(Packing.XYZ, input);
 			UnkPacked2 = new PackedVector(Packing.XYZ, input);
-			UnkPacked3 = new PackedVector(Packing.XYZ, input);
+			UnkPacked3 = new PackedVector(Packing.Colour, input);
 
 			PositionX = new PackedFloat(input);
 			PositionY = new PackedFloat(input);

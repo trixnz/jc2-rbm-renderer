@@ -1,0 +1,26 @@
+﻿<controls:Flyout
+	x:Class="RBMRender.Flyouts.RenderOptions"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	mc:Ignorable="d"
+	x:Name="RenderOptionsFlyout"
+	Theme="Adapt"
+	d:DesignWidth="250" d:DesignHeight="250" Width="250"
+	Header="Render Options" Position="Right">
+	<Grid>
+		<CheckBox Content="Wireframe" Margin="10,112,0,0" VerticalAlignment="Top"
+		          IsChecked="{Binding WireframeEnabled, Mode=TwoWay}" />
+		<GroupBox Header="Normal/Tangent Options" Margin="10,10,10,0" VerticalAlignment="Top" Height="97">
+			<Grid>
+				<CheckBox Content="Normal debugging" Margin="10,31,-32,0" VerticalAlignment="Top"
+				          IsChecked="{Binding NormalDebugging, Mode=TwoWay}" />
+				<Slider Margin="99,10,10,0" VerticalAlignment="Top" Maximum="1" SmallChange="1" Value="{Binding NormalLength, Mode=TwoWay}" />
+				<Label Content="Normal Length" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
+			</Grid>
+		</GroupBox>
+
+	</Grid>
+</controls:Flyout>

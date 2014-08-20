@@ -50,8 +50,9 @@ namespace RBMRender.Components
 
 		#region Overrides of GameSystem
 
-		private Matrix _cameraRotation = Matrix.Identity;
+		public Matrix CameraRotation = Matrix.Identity;
 		private bool _shiftPressed;
+		public float Fov = (float)Math.PI / 4.0f;
 
 		private void UpdateViewMatrix()
 		{
@@ -73,40 +74,40 @@ namespace RBMRender.Components
 
 					case Keys.W:
 					case Keys.Up:
-						Move(_cameraRotation.Forward);
+						Move(CameraRotation.Forward);
 						break;
 					case Keys.S:
 					case Keys.Down:
-						Move(_cameraRotation.Backward);
+						Move(CameraRotation.Backward);
 						break;
 					case Keys.D:
 					case Keys.Right:
-						Move(_cameraRotation.Right);
+						Move(CameraRotation.Right);
 						break;
 					case Keys.A:
 					case Keys.Left:
-						Move(_cameraRotation.Left);
+						Move(CameraRotation.Left);
 						break;
 					case Keys.PageUp:
 					case Keys.Space:
-						Move(_cameraRotation.Up);
+						Move(CameraRotation.Up);
 						break;
 					case Keys.PageDown:
 					case Keys.LeftControl:
 					case Keys.RightControl:
-						Move(_cameraRotation.Down);
+						Move(CameraRotation.Down);
 						break;
 				}
 			}
 
-			_cameraRotation.Forward.Normalize();
-			_cameraRotation.Right.Normalize();
-			_cameraRotation.Up.Normalize();
+			CameraRotation.Forward.Normalize();
+			CameraRotation.Right.Normalize();
+			CameraRotation.Up.Normalize();
 
-			_cameraRotation *= Matrix.RotationY(Yaw);
-			_cameraRotation *= Matrix.RotationAxis(_cameraRotation.Right, Pitch);
-			Vector3 target = Position + _cameraRotation.Forward;
-			View = Matrix.LookAtRH(Position, target, _cameraRotation.Up);
+			CameraRotation *= Matrix.RotationY(Yaw);
+			CameraRotation *= Matrix.RotationAxis(CameraRotation.Right, Pitch);
+			Vector3 target = Position + CameraRotation.Forward;
+			View = Matrix.LookAtRH(Position, target, CameraRotation.Up);
 		}
 
 		/// <summary>
@@ -136,7 +137,7 @@ namespace RBMRender.Components
 
 			UpdateViewMatrix();
 			float aspectRatio = GraphicsDevice.BackBuffer.Width/(float) GraphicsDevice.BackBuffer.Height;
-			Projection = Matrix.PerspectiveFovRH((float) Math.PI/4.0f, aspectRatio, 0.01f, 10000.0f);
+			Projection = Matrix.PerspectiveFovRH(Fov, aspectRatio, 0.01f, 10000.0f);
 
 			// Handle base.Update
 			base.Update(gameTime);

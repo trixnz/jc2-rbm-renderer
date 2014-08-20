@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Gibbed.Avalanche.FileFormats;
+using RBMRender.Properties;
 using SharpDX.Toolkit.Graphics;
 
 namespace RBMRender
@@ -15,9 +17,25 @@ namespace RBMRender
 		public TextureFactory(GraphicsDevice graphicsDevice)
 		{
 			GraphicsDevice = graphicsDevice;
+
+			if (GeneralSmallArc == null)
+				LoadGeneral();
 		}
 
+		private static SmallArchiveWrapper GeneralSmallArc { get; set; }
+
 		public GraphicsDevice GraphicsDevice { get; set; }
+
+		private void LoadGeneral()
+		{
+			ArchiveWrapper archive = ArchiveManager.Instance.GetArchive("pc0.tab");
+			GeneralSmallArc = new SmallArchiveWrapper
+			                  {
+				                  SmallArchive = new SmallArchiveFile(),
+				                  Reader = new MemoryStream(archive.LoadFile("general.blz"))
+			                  };
+			GeneralSmallArc.SmallArchive.Deserialize(GeneralSmallArc.Reader);
+		}
 
 		public event LoadFailedDlg LoadFailed;
 
@@ -32,10 +50,10 @@ namespace RBMRender
 		/// <summary>
 		///     Load a texture from a SmallArc
 		/// </summary>
-		/// <param name="archive">The archive containing the SmallArc</param>
+		/// <param name="smallArchive">The smallArchive containing the file</param>
 		/// <param name="entry">The file metadata</param>
 		/// <returns>Texture</returns>
-		public Texture2D LoadTexture(ArchiveWrapper archive, SmallArchiveFile.Entry entry)
+		public Texture2D LoadTexture(SmallArchiveWrapper smallArchive, SmallArchiveFile.Entry entry)
 		{
 			string filename = entry.Name;
 
@@ -46,9 +64,9 @@ namespace RBMRender
 			if (LoadedTextures.TryGetValue(filename, out ret))
 				return ret;
 
-			archive.Reader.Seek(entry.Offset, SeekOrigin.Begin);
+			smallArchive.Reader.Seek(entry.Offset, SeekOrigin.Begin);
 			var imageBuf = new byte[entry.Size];
-			archive.Reader.Read(imageBuf, 0, imageBuf.Length);
+			smallArchive.Reader.Read(imageBuf, 0, imageBuf.Length);
 
 			using (var ms = new MemoryStream(imageBuf))
 			{
@@ -69,7 +87,7 @@ namespace RBMRender
 		}
 
 		/// <summary>
-		///     Load a texture from the filesystem
+		///     Load a texture from general.blz
 		/// </summary>
 		/// <param name="filename">Filename of the texture to be loaded</param>
 		/// <returns>Texture</returns>
@@ -83,37 +101,24 @@ namespace RBMRender
 			if (LoadedTextures.TryGetValue(filename, out ret))
 				return ret;
 
-			// Path to an unpacked general.blz for texture lookups (Temporary)
-			// Should instead load up general.blz and index the textures so they
-			// can be loaded on demand. Loading them all would take too much time.
-			var searchPath = new[]
-			                 {
-				                 Properties.Settings.Default.UnpackedGeneral
-			                 };
+			var entry = GeneralSmallArc.SmallArchive.Entries.FirstOrDefault(e => e.Name == filename);
+			if (entry == null)
+				return null;
 
-			foreach (string path in searchPath)
+			GeneralSmallArc.Reader.Seek(entry.Offset, SeekOrigin.Begin);
+			Texture2D texture = Texture2D.Load(GraphicsDevice, GeneralSmallArc.Reader);
+			// Well.. it failed to load.
+			if (texture == null)
 			{
-				string fullPath = Path.Combine(path, filename);
+				OnLoadFailed(filename);
+				FailedTextures.Add(filename);
 
-				if (File.Exists(fullPath))
-				{
-					Texture2D texture = Texture2D.Load(GraphicsDevice, fullPath);
-					// Well.. it failed to load.
-					if (texture == null)
-					{
-						OnLoadFailed(filename);
-						FailedTextures.Add(filename);
-
-						return null;
-					}
-
-					LoadedTextures[filename] = texture;
-
-					return texture;
-				}
+				return null;
 			}
 
-			return null;
+			LoadedTextures[filename] = texture;
+
+			return texture;
 		}
 	}
 }

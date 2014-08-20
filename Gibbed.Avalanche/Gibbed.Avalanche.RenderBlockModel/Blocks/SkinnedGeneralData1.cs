@@ -21,33 +21,42 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using Gibbed.Avalanche.FileFormats;
 using Gibbed.IO;
 
 namespace Gibbed.Avalanche.RenderBlockModel.Blocks
 {
-    public struct SkinnedGeneralData1 : IFormat
-    {
-        public uint Color1;
-        public uint Color2;
-        public uint Color3;
-        public float U;
-        public float V;
+	public struct SkinnedGeneralData1 : IFormat
+	{
+		public float U;
+		public float V;
+		public PackedByteVector Normal { get; set; }
+		public PackedByteVector Tangent { get; set; }
+		public PackedByteVector Binormal { get; set; }
 
-        public void Serialize(Stream output, Endian endian)
-        {
-            throw new NotImplementedException();
-        }
+		public void Serialize(Stream output, Endian endian)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void Deserialize(Stream input, Endian endian)
-        {
-            this.Color1 = input.ReadValueU32(endian);
-            this.Color2 = input.ReadValueU32(endian);
-            this.Color3 = input.ReadValueU32(endian);
-            this.U = input.ReadValueF32(endian);
-            this.V = input.ReadValueF32(endian);
-        }
-    }
+		public void Deserialize(Stream input, Endian endian)
+		{
+			Normal = new PackedByteVector(input)
+			         {
+				         Clamp = true
+			         };
+			Tangent = new PackedByteVector(input)
+			          {
+				          Clamp = true
+			          };
+			// Guess
+			Binormal = new PackedByteVector(input)
+			           {
+				           Clamp = true
+			           };
+
+			U = input.ReadValueF32(endian);
+			V = input.ReadValueF32(endian);
+		}
+	}
 }

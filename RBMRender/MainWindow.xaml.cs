@@ -1,21 +1,24 @@
-﻿using System;
-using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
+using MahApps.Metro.Controls;
 using Microsoft.Win32;
+using RBMRender.Models;
 
 namespace RBMRender
 {
 	/// <summary>
 	///     Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : MetroWindow
 	{
-		private GameWorld _game;
+		private readonly GameWorld _game;
 
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			_game = new GameWorld(this);
+			DataContext = new MainViewModel(_game);
 		}
 
 		private void Surface_MouseDown(object sender, MouseButtonEventArgs e)
@@ -25,28 +28,7 @@ namespace RBMRender
 
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			_game = new GameWorld(this);
 			_game.Run(Surface);
-		}
-
-		private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-		{
-			var fileDialog = new OpenFileDialog();
-
-			var result = fileDialog.ShowDialog();
-			if (result == true)
-			{
-				_game.OpenArchive(fileDialog.FileName);
-			}
-		}
-
-		private void lstModels_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-		{
-			_game.UnloadAllRbm();
-			foreach (var selectedItem in lstModels.SelectedItems)
-			{
-				_game.LoadRbm(selectedItem as string);
-			}
 		}
 	}
 }

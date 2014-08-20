@@ -7,7 +7,7 @@ namespace RBMRender.RenderBlocks
 {
 	public class RenderBlockCarPaint : RenderBlockBase<CarPaint>
 	{
-		public RenderBlockCarPaint(GameWorld game, ArchiveWrapper archive, CarPaint block) : base(game, archive, block)
+		public RenderBlockCarPaint(GameWorld game, SmallArchiveWrapper smallArchive, CarPaint block) : base(game, smallArchive, block)
 		{
 		}
 
@@ -40,12 +40,15 @@ namespace RBMRender.RenderBlocks
 			Diffuse.SetValue(new Vector4(Block.Unknown1.ColorTone1R, Block.Unknown1.ColorTone1G,
 				Block.Unknown1.ColorTone1B, 1));
 
-			foreach (EffectPass pass in Game.NormalMappingEffect.CurrentTechnique.Passes)
+			foreach (EffectPass pass in Game.NormalMappingEffect.Techniques["CarPaint"].Passes)
 			{
 				pass.Apply();
 
 				Game.GraphicsDevice.DrawIndexed(PrimitiveType.TriangleList, Block.Faces.Count, baseIndex, baseVertex);
 			}
+
+			if (GlobalSettings.Instance.NormalDebugging)
+				base.DrawNormals(Block.Faces.Count, baseIndex, baseVertex);
 
 			baseIndex += Block.Faces.Count;
 			baseVertex += Block.VertexData0.Count;

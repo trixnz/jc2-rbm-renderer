@@ -7,8 +7,8 @@ namespace RBMRender.RenderBlocks
 {
 	public class RenderBlockLambert : RenderBlockBase<Lambert>
 	{
-		public RenderBlockLambert(GameWorld game, ArchiveWrapper archive, Lambert block)
-			: base(game, archive, block)
+		public RenderBlockLambert(GameWorld game, SmallArchiveWrapper smallArchive, Lambert block)
+			: base(game, smallArchive, block)
 		{
 		}
 

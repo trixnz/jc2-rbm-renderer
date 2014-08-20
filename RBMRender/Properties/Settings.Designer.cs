@@ -22,14 +22,5 @@ namespace RBMRender.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UnpackedGeneral {
-            get {
-                return ((string)(this["UnpackedGeneral"]));
-            }
-        }
     }
 }

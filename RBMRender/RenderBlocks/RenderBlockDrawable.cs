@@ -6,5 +6,7 @@ namespace RBMRender.RenderBlocks
 	{
 		void Load(List<VertexPositionNormalTextureTangent> vertices, List<short> indices);
 		void Draw(ref int baseVertex, ref int baseIndex);
+
+		int VertexCount { get; set; }
 	}
 }

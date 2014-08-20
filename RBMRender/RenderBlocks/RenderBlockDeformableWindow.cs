@@ -7,8 +7,8 @@ namespace RBMRender.RenderBlocks
 {
 	public class RenderBlockDeformableWindow : RenderBlockBase<DeformableWindow>
 	{
-		public RenderBlockDeformableWindow(GameWorld game, ArchiveWrapper archive, DeformableWindow block)
-			: base(game, archive, block)
+		public RenderBlockDeformableWindow(GameWorld game, SmallArchiveWrapper smallArchive, DeformableWindow block)
+			: base(game, smallArchive, block)
 		{
 		}
 
