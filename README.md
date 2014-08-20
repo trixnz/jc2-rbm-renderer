@@ -3,18 +3,16 @@ Renderer for ```Just Cause 2``` model assets
 
 Currently a **```WORK IN PROGRESS```**.
 
+Download
+=============
+Latest version of RBMRender can be acquired from https://github.com/trixnz/jc2-rbm-renderer/releases/latest
+
 Usage
 ==============
-Open any small archive (.ee, .eez, etc.) using the File->Open menu. Most models will appear to be incorrectly textured until you set the ```UnpackedGeneral``` path to an extracted ```general.blz``` via the ```RBMRender.exe.config``` file in the compiled output directory.
+Open any archive (.tab) using the ```Open``` button.
 
-For now, you will need to extract general.blz. Eventually, the tool will automatically locate and load this file.
+Building
+==============
+The tool currently depends on Havok 5.5, which can be freely acquired from the Havok website. The ```HavokAnimations``` project is setup to look for Havok in the path ```D:\hk550\``` but this can be changed to suit your environment from within Visual Studio.
 
-General.blz path
-===============
-An example of what a path may look like:
-
-```
-<setting name="UnpackedGeneral" serializeAs="String">
-    <value>C:\Path\To\Unpacked\General.blz\</value>
-</setting>
-```
+Additionally, you will need to drop the ```projects``` folder from http://svn.gib.me/builds/avalanche/avalanche-r171_b56.zip into the output directory.
