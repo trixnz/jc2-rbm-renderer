@@ -1,8 +1,3 @@
-Renderer for ```Just Cause 2``` model assets
-==============
-
-Currently a **```WORK IN PROGRESS```**.
-
 Download
 =============
 Latest version of RBMRender can be acquired from https://github.com/trixnz/jc2-rbm-renderer/releases/latest
